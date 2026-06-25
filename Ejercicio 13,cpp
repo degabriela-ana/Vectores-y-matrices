@@ -1,0 +1,58 @@
+// EJERCICIO 13:
+// Escribir un programa que copie los elementos de los bordes en sentido horario en una matriz de m x n en un vector resultante llamado v.
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m, n;
+    cout << "Ingrese numero de filas (m): "; cin >> m;
+    cout << "Ingrese numero de columnas (n): "; cin >> n;
+    
+    int elemento[m][n];
+    int v[(m * 2) + (n * 2)]; 
+    int pos = 0; 
+
+    cout << "\nElementos de la Matriz:\n";
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            cout << "Elemento[" << i << "][" << j << "] = "; 
+            cin >> elemento[i][j];
+        }
+    }
+
+    // Dibujando la matriz ingresada
+    cout << "\nSu matriz es:\n";
+    for(int i = 0; i < m; i++) {
+        cout << "fila[" << i << "]:\t"; 
+        for(int j = 0; j < n; j++) {
+            cout << elemento[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+    // Para recorrer los bordes
+    for(int j = 0; j < n; j++) v[pos++] = elemento[0][j]; // Arriba
+    for(int i = 1; i < m; i++) v[pos++] = elemento[i][n - 1]; // Derecha
+    if (m > 1) { 
+        for(int j = n - 2; j >= 0; j--) v[pos++] = elemento[m - 1][j]; // Abajo
+    }
+    if (n > 1) { 
+        for(int i = m - 2; i > 0; i--) v[pos++] = elemento[i][0]; // Izquierda
+    }
+
+    // Mostrar números del borde
+    cout << "\nElementos del borde de la matriz: ";
+    for(int i = 0; i < pos; i++) {
+        cout << v[i];
+        if (i < pos - 1) cout << ", "; // Separa por comas
+    }
+    cout << endl;
+
+    // Mostrar el vector resultante 
+    cout << "\nVector de bordes (v): \n";
+    for(int i = 0; i < pos; i++) {
+        cout << "v[" << i << "] = " << v[i] << endl;
+    }
+    return 0;
+}
